@@ -7,11 +7,11 @@ st.subheader("")
 
 from typing import *
 import json
-# import sys
+import sys
 import time
-# import subprocess
-# import traceback
-# from tempfile import NamedTemporaryFile
+import subprocess
+import traceback
+from tempfile import NamedTemporaryFile
 from PIL import Image
 
 
@@ -92,7 +92,7 @@ if 'partner_avatar' not in st.session_state:
     st.session_state.partner_avatar = None
 
 if not st.session_state.partner_avatar:
-    st.session_state.partner_avatar = 'https://imgur.com/TJfjrkI'
+    st.session_state.partner_avatar = 'https://i.imgur.com/nTeWfNe.png'
 
 partner_avatar = st.session_state.partner_avatar
 
@@ -519,6 +519,7 @@ elif st.session_state.page == 2:
                             print(f"An error occurred. Retrying in 5 seconds...")
                             time.sleep(5)
                         else:
+                            
                             error_message_html = """
                                 <div style='display: inline-block; border:2px solid red; padding: 4px; border-radius: 5px; margin-bottom: 20px; color: red;'>
                                     <strong>Network error:</strong> please try again.
