@@ -93,7 +93,7 @@ if 'partner_avatar' not in st.session_state:
     st.session_state.partner_avatar = None
 
 if not st.session_state.partner_avatar:
-    st.session_state.partner_avatar = 'pic/chatbot_avatar.png'
+    st.session_state.partner_avatar = 'https://i.imgur.com/nTeWfNe.png'
 
 partner_avatar = st.session_state.partner_avatar
 
@@ -135,7 +135,7 @@ def next_page():
 content = st.empty()
 
 if 'user_avatar' not in st.session_state:
-    st.session_state.user_avatar = 'pic/human_avatar.png'
+    st.session_state.user_avatar = 'https://i.imgur.com/TJfjrkI.png'
 if 'user_name' not in st.session_state:
     st.session_state.user_name = "You"
 
@@ -213,7 +213,7 @@ if st.session_state.page == 0:
     
     st.markdown("#### EcoAI balances creativity with environmental care. Designed to minimize resource use, it promotes mindful image generation, meeting your needs while reducing energy and water consumption.")
     # insert a picture from pic/page1_background.png
-    st.image("pic/page1_background.png")
+    st.image("https://i.imgur.com/CdEXqrb.png")
 
     # selected_index = image_select(
     #     label="",
