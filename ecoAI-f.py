@@ -7,11 +7,11 @@ st.subheader("")
 
 from typing import *
 import json
-import sys
+# import sys
 import time
-import subprocess
-import traceback
-from tempfile import NamedTemporaryFile
+# import subprocess
+# import traceback
+# from tempfile import NamedTemporaryFile
 from PIL import Image
 
 
