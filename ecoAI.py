@@ -15,8 +15,8 @@ from tempfile import NamedTemporaryFile
 from PIL import Image
 
 
-import matplotlib.pyplot as plt
-from IPython.display import display
+# import matplotlib.pyplot as plt
+# from IPython.display import display
 import requests
 
 def generate_image(prompt, n:int=1, size:str="1024x1024"):
