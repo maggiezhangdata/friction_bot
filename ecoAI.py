@@ -5,6 +5,38 @@ import re  # Import regular expressions
 
 st.subheader("")
 
+from typing import *
+import json
+import sys
+import time
+import subprocess
+import traceback
+from tempfile import NamedTemporaryFile
+from PIL import Image
+
+import cv2
+import matplotlib.pyplot as plt
+from IPython.display import display
+import requests
+
+def generate_image(prompt, n:int=1, size:str="1024x1024"):
+    response = openai.images.generate(
+        model="dall-e-3",
+        prompt=prompt,
+        size=size,
+        quality="standard",
+        n=1
+    )
+
+    image_url = response.data[0].url
+    
+    # Download and display image using Streamlit
+    im = Image.open(requests.get(image_url, stream=True).raw)
+    im.save("temp.png")
+    st.image(im, caption=prompt)
+
+    return image_url
+
 openai.api_key = st.secrets["OPENAI_API_KEY"]
 # openai.base_url = "https://api.openai.com/v1/assistants"
 openai.default_headers = {"OpenAI-Beta": "assistants=v2"}
@@ -379,16 +411,67 @@ elif st.session_state.page == 2:
                         update_typing_animation(waiting_message, 5)  # Update typing animation
                         # raise Exception("test")
                         message = openai.beta.threads.messages.create(thread_id=st.session_state.thread_id,role="user",content=user_input)
-                        run = openai.beta.threads.runs.create(thread_id=st.session_state.thread_id,assistant_id=assistant_id,extra_headers = {"OpenAI-Beta": "assistants=v2"})
+                        # run = openai.beta.threads.runs.create(thread_id=st.session_state.thread_id,assistant_id=assistant_id,extra_headers = {"OpenAI-Beta": "assistants=v2"})'
+
+                        
+                        run = openai.beta.threads.runs.create(
+                                thread_id=st.session_state.thread_id,
+                                assistant_id=assistant_id,
+                                tools=[{
+                                    "type": "function",
+                                    "function": {
+                                        "name": "generate_image",
+                                        "description": "Generate image using DALL-E 3",
+                                        "parameters": {
+                                            "type": "object",
+                                            "properties": {
+                                                "prompt": {"type": "string", "description": "The prompt to generate image"},
+                                                "size": {"type": "string", "enum": ["1024x1024", "1792x1024", "1024x1792"]}
+                                            },
+                                            "required": ["prompt"]
+                                        }
+                                    }
+                                }]
+                            )
                         
                         # Wait until run is complete
                         while True:
-                            run_status = openai.beta.threads.runs.retrieve(thread_id=st.session_state.thread_id,run_id=run.id)
+                            run_status = openai.beta.threads.runs.retrieve(
+                                thread_id=st.session_state.thread_id,
+                                run_id=run.id
+                            )
                             if run_status.status == "completed":
-                                finish_time = time.time()
+                                messages = openai.beta.threads.messages.list(
+                                    thread_id=st.session_state.thread_id
+                                )
+                                full_response = messages.data[0].content[0].text.value
                                 break
-                            dots = update_typing_animation(waiting_message, dots)  # Update typing animation
-                            time.sleep(0.3) 
+                            
+                            elif run_status.status == "requires_action":
+                                tool_calls = run_status.required_action.submit_tool_outputs.tool_calls
+                                tool_outputs = []
+                                for tool_call in tool_calls:
+                                    if tool_call.function.name == "generate_image":
+                                        args = json.loads(tool_call.function.arguments)
+                                        image_url = generate_image(args["prompt"], size=args.get("size", "1024x1024"))
+                                        tool_outputs.append({
+                                            "tool_call_id": tool_call.id,
+                                            "output": image_url
+                                        })
+                                
+                                openai.beta.threads.runs.submit_tool_outputs(
+                                    thread_id=st.session_state.thread_id,
+                                    run_id=run.id,
+                                    tool_outputs=tool_outputs
+                                )
+                            
+                            elif run_status.status == "failed":
+                                full_response = "Sorry, I encountered an error. Please try again."
+                                waiting_message.empty()
+                                break
+
+                            dots = update_typing_animation(waiting_message, dots)
+                            time.sleep(0.3)
                         # Retrieve and display messages
                         messages = openai.beta.threads.messages.list(thread_id=st.session_state.thread_id)
                         full_response = messages.data[0].content[0].text.value
