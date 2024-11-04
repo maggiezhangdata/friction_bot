@@ -48,7 +48,7 @@ assistant_id = st.secrets["friction_with"]
 print(assistant_id)
 speed = 200
 
-min_duration = 4
+min_duration = 0.1
 max_duration = 10
 human_speed = 80
 
