@@ -71,7 +71,6 @@ partner_name = st.session_state.partner_names
 if "session_end" not in st.session_state:
     st.session_state.session_end = False
 
-from streamlit_image_select import image_select
 # Avatar selection
 avatars = [
     "https://ooo.0x0.ooo/2024/06/03/OJGv0r.png",  # Replace these URLs with your actual avatar image 
