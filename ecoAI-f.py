@@ -14,7 +14,7 @@ import traceback
 from tempfile import NamedTemporaryFile
 from PIL import Image
 
-import cv2
+
 import matplotlib.pyplot as plt
 from IPython.display import display
 import requests
@@ -32,7 +32,7 @@ def generate_image(prompt, n:int=1, size:str="1024x1024"):
     
     # Download and display image using Streamlit
     im = Image.open(requests.get(image_url, stream=True).raw)
-    im.save("temp.png")
+    # im.save("temp.png")
     st.image(im, caption=prompt)
 
     return image_url
