@@ -239,6 +239,14 @@ if st.session_state.page == 0:
 
 
 elif st.session_state.page == 2:
+    if "messages" not in st.session_state:
+        with st.chat_message("assistant", avatar=partner_avatar):
+            st.markdown("<span style='color: red;'>" + partner_name + "：</span>Welcome! I'm EcoAI, your sustainable creativity companion. How can I help you today?", unsafe_allow_html=True)
+            st.empty()
+        # st.session_state["messages"] = [
+        #     {"role": "assistant", "content": "Welcome! I'm EcoAI, your sustainable creativity companion. How can I help you today?"}
+        # ]
+        st.empty()
     
     user_avatar = st.session_state.user_avatar
     
@@ -295,6 +303,7 @@ elif st.session_state.page == 2:
     for message in st.session_state.messages:
         if message["role"] == "user":
             with st.chat_message(message["role"], avatar=user_avatar):
+                st.empty()
                 # st.markdown(message["content"]) 
                 user_input = message["content"]
                 user_name = st.session_state.user_name
@@ -302,6 +311,7 @@ elif st.session_state.page == 2:
                 
         else:
             with st.chat_message(message["role"],avatar=partner_avatar):
+                st.empty()
                 # st.markdown(message["content"], unsafe_allow_html=True)
                 
                 partner_input = message["content"]
@@ -392,12 +402,14 @@ elif st.session_state.page == 2:
             # st.rerun()
 
             with st.chat_message("user", avatar=user_avatar):
+                st.empty()
                 # st.markdown(user_input)
                 # user_input = message["content"]
                 user_name = st.session_state.user_name
                 st.markdown("<span style='color: red;'>" + user_name + "：</span>" + user_input, unsafe_allow_html=True)
 
             with st.chat_message("assistant",avatar=partner_avatar):
+                st.empty()
                 message_placeholder = st.empty()
                 waiting_message = st.empty()  # Create a new placeholder for the waiting message
                 dots = 0
