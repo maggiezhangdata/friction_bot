@@ -48,7 +48,7 @@ assistant_id = st.secrets["friction_without"]
 print(assistant_id)
 speed = 200
 
-min_duration = 0.1
+min_duration = 0
 max_duration = 10
 human_speed = 80
 
@@ -105,7 +105,7 @@ if "thread_id" not in st.session_state:
     st.session_state.thread_id = thread.id
 
 if "show_thread_id" not in st.session_state:
-    st.session_state.show_thread_id = False
+    st.session_state.show_thread_id = True
 
 if 'first_message_sent' not in st.session_state:
     st.session_state.first_message_sent = False
@@ -211,7 +211,8 @@ if st.session_state.page == 0:
     st.subheader("Generating Art with an Environmental Heart")
 
     
-    st.markdown("#### EcoAI balances creativity with environmental care. Designed to minimize resource use, it promotes mindful image generation, meeting your needs while reducing energy and water consumption.")
+    st.markdown("<div style='font-size: 24px;'>EcoAI balances creativity with environmental care. Designed to minimize resource use, it promotes mindful image generation, meeting your needs while reducing energy and water consumption. </div><br>", unsafe_allow_html=True)
+    
     # insert a picture from pic/page1_background.png
     st.image("https://i.imgur.com/CdEXqrb.png")
 
@@ -232,13 +233,21 @@ if st.session_state.page == 0:
         
    
     
-    if st.button("Next page", on_click=next_page, type = "primary", use_container_width=True):
+    if st.button("Start exploring", on_click=next_page, type = "primary", use_container_width=True):
         # show sucess and then navigate to the next page
         st.success("Proceed to the next page")
 
 
 
 elif st.session_state.page == 2:
+    if "messages" not in st.session_state:
+        with st.chat_message("assistant", avatar=partner_avatar):
+            st.markdown("<span style='color: red;'>" + partner_name + "：</span>Welcome! I'm EcoAI, your sustainable creativity companion. How can I help you today?", unsafe_allow_html=True)
+            st.empty()
+        # st.session_state["messages"] = [
+        #     {"role": "assistant", "content": "Welcome! I'm EcoAI, your sustainable creativity companion. How can I help you today?"}
+        # ]
+        st.empty()
     
     user_avatar = st.session_state.user_avatar
     
@@ -255,12 +264,12 @@ elif st.session_state.page == 2:
     # Automatically send a "hello" message when the chat begins
 
     # This is where we create a placeholder for the countdown timer
-    st.sidebar.markdown("Please start the conversation with EcoAI by typing :red[Hello] 👋 ", unsafe_allow_html=True)
-
-
+    # st.sidebar.markdown("Please start the conversation with EcoAI by typing :red[Hello] 👋 ", unsafe_allow_html=True)
+    st.sidebar.markdown("When the conversation ends, please copy the following thread ID and paste it into the text box below.", unsafe_allow_html=True)
 
     # st.sidebar.markdown("#### 请输入“:red[你好]”开启你们的讨论！👋 \n \n 请先开启对话以获取对话编号 \n")
     thred_id_placeholder = st.sidebar.empty()
+    thred_id_placeholder.info(st.session_state.thread_id)
     timer_placeholder = st.sidebar.empty()
     # timer_placeholder.markdown(f"##### 请先开启对话 ",unsafe_allow_html=True)
 
@@ -276,10 +285,11 @@ elif st.session_state.page == 2:
                 seconds = int((minutes - int(minutes)) * 60)
                 return f"{minutes_new} minutes {seconds} seconds"
             
-            if remaining_time > 0:
-                timer_placeholder.markdown(
-                    f"##### The chat will end in <strong><span style='color: #8B0000;'> {format_time(remaining_time)} </span></strong>.\n",
-                    unsafe_allow_html=True)
+
+            # if remaining_time > 0:
+            #     timer_placeholder.markdown(
+            #         f"##### The chat will end in <strong><span style='color: #8B0000;'> {format_time(remaining_time)} </span></strong>.\n",
+            #         unsafe_allow_html=True)
                 
             if thread_id_remaining <= 0:
                 st.session_state.show_thread_id = True
@@ -295,6 +305,7 @@ elif st.session_state.page == 2:
     for message in st.session_state.messages:
         if message["role"] == "user":
             with st.chat_message(message["role"], avatar=user_avatar):
+                st.empty()
                 # st.markdown(message["content"]) 
                 user_input = message["content"]
                 user_name = st.session_state.user_name
@@ -302,6 +313,7 @@ elif st.session_state.page == 2:
                 
         else:
             with st.chat_message(message["role"],avatar=partner_avatar):
+                st.empty()
                 # st.markdown(message["content"], unsafe_allow_html=True)
                 
                 partner_input = message["content"]
@@ -392,12 +404,14 @@ elif st.session_state.page == 2:
             # st.rerun()
 
             with st.chat_message("user", avatar=user_avatar):
+                st.empty()
                 # st.markdown(user_input)
                 # user_input = message["content"]
                 user_name = st.session_state.user_name
                 st.markdown("<span style='color: red;'>" + user_name + "：</span>" + user_input, unsafe_allow_html=True)
 
             with st.chat_message("assistant",avatar=partner_avatar):
+                st.empty()
                 message_placeholder = st.empty()
                 waiting_message = st.empty()  # Create a new placeholder for the waiting message
                 dots = 0
@@ -562,8 +576,8 @@ elif st.session_state.page == 2:
 
 
     while True:
-        if st.session_state.show_thread_id:
-            thred_id_placeholder.info(st.session_state.thread_id)
+        
+        # thred_id_placeholder.info(st.session_state.thread_id)
         if st.session_state.session_end:
             st.session_state.show_thread_id = False
             break
