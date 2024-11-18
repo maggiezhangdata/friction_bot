@@ -214,7 +214,7 @@ if st.session_state.page == 0:
     st.markdown("<div style='font-size: 24px;'>EcoAI balances creativity with environmental care. Designed to minimize resource use, it promotes mindful image generation, meeting your needs while reducing energy and water consumption. </div><br>", unsafe_allow_html=True)
     
     # insert a picture from pic/page1_background.png
-    st.image("https://i.imgur.com/CdEXqrb.png")
+    st.image("https://i.imgur.com/0njuvXt.png")
 
     # selected_index = image_select(
     #     label="",
