@@ -207,6 +207,27 @@ if st.session_state.page == 1:
 
 if st.session_state.page == 0:
 # Avatar selection component
+    st.markdown("""
+            <style>
+            .block-container {
+                padding-top: 0rem;
+                padding-bottom: 0rem;
+                margin-top: -60px;
+            }
+            div[data-testid="stToolbar"] {
+                visibility: hidden;
+                height: 0%;
+                position: fixed;
+            }
+            div[data-testid="stDecoration"] {
+                visibility: hidden;
+                height: 0%;
+                position: fixed;
+            }
+            #MainMenu {visibility: hidden;}
+            header {visibility: hidden;}
+            </style>
+            """, unsafe_allow_html=True)
     st.title("EcoAI: Sustainable Creativity")
     st.subheader("Generating Art with an Environmental Heart")
 
