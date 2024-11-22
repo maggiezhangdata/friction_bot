@@ -105,7 +105,7 @@ if "thread_id" not in st.session_state:
     st.session_state.thread_id = thread.id
 
 if "show_thread_id" not in st.session_state:
-    st.session_state.show_thread_id = True
+    st.session_state.show_thread_id = False
 
 if 'first_message_sent' not in st.session_state:
     st.session_state.first_message_sent = False
@@ -290,7 +290,7 @@ elif st.session_state.page == 2:
 
     # st.sidebar.markdown("#### 请输入“:red[你好]”开启你们的讨论！👋 \n \n 请先开启对话以获取对话编号 \n")
     thred_id_placeholder = st.sidebar.empty()
-    thred_id_placeholder.info(st.session_state.thread_id)
+    # thred_id_placeholder.info(st.session_state.thread_id)
     timer_placeholder = st.sidebar.empty()
     # timer_placeholder.markdown(f"##### 请先开启对话 ",unsafe_allow_html=True)
 
@@ -480,6 +480,11 @@ elif st.session_state.page == 2:
                                     thread_id=st.session_state.thread_id
                                 )
                                 full_response = messages.data[0].content[0].text.value
+                                # if "search" in full_response:
+                                #     st.session_state.show_thread_id = True
+                                # check if the string of full_response contains "search" in any kinds for example "searching"
+                                if "keyword" in full_response.lower() or "search" in full_response.lower():
+                                    st.sidebar.info(st.session_state.thread_id)
                                 break
                             
                             elif run_status.status == "requires_action":
@@ -499,6 +504,7 @@ elif st.session_state.page == 2:
                                     run_id=run.id,
                                     tool_outputs=tool_outputs
                                 )
+                                st.session_state.show_thread_id = True
                             
                             elif run_status.status == "failed":
                                 full_response = "Sorry, I encountered an error. Please try again."
@@ -597,10 +603,9 @@ elif st.session_state.page == 2:
 
 
     while True:
-        
         # thred_id_placeholder.info(st.session_state.thread_id)
         if st.session_state.session_end:
-            st.session_state.show_thread_id = False
+            st.session_state.show_thread_id = True
             break
         refresh_timer()
         time.sleep(0.6)  # Adjust this value as necessary for your use case
