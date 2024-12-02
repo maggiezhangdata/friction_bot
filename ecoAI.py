@@ -287,7 +287,7 @@ elif st.session_state.page == 2:
 
     # This is where we create a placeholder for the countdown timer
     # st.sidebar.markdown("Please start the conversation with EcoAI by typing :red[Hello] 👋 ", unsafe_allow_html=True)
-    st.sidebar.markdown("When the conversation ends, a thread ID will be generated. Please copy the following thread ID and paste it into the text box below.", unsafe_allow_html=True)
+    st.sidebar.markdown("When the conversation ends, a thread ID will be generated. Please copy the following thread ID and paste it into the required text box in the questionnaire.", unsafe_allow_html=True)
 
     # st.sidebar.markdown("#### 请输入“:red[你好]”开启你们的讨论！👋 \n \n 请先开启对话以获取对话编号 \n")
     thred_id_placeholder = st.sidebar.empty()
