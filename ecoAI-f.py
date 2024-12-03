@@ -19,6 +19,50 @@ from PIL import Image
 # from IPython.display import display
 import requests
 
+import requests
+import base64
+from PIL import Image
+from io import BytesIO
+class QuickImgurUploader:
+    def __init__(self, client_id):
+        """Initialize with your Imgur client ID"""
+        self.client_id = client_id
+        self.headers = {'Authorization': f'Client-ID {client_id}'}
+        self.upload_url = 'https://api.imgur.com/3/image'
+
+    def upload_image(self, image_url):
+        """Upload a single image from a URL to Imgur"""
+        try:
+            # Download the image
+            response = requests.get(image_url)
+            response.raise_for_status()
+            
+            # Prepare the image for upload
+            files = {'image': base64.b64encode(response.content)}
+
+            # Upload to Imgur
+            imgur_response = requests.post(
+                self.upload_url,
+                headers=self.headers,
+                data=files
+            )
+            imgur_response.raise_for_status()
+            
+            # Return the Imgur URL
+            return imgur_response.json()['data']['link']
+
+        except Exception as e:
+            print(f"Upload failed: {str(e)}")
+            return None
+        
+
+# Replace with your actual Imgur client ID
+IMGUR_CLIENT_ID = '72939b1e567fb39'
+
+# Initialize uploader
+uploader = QuickImgurUploader(IMGUR_CLIENT_ID)
+
+
 def generate_image(prompt, n:int=1, size:str="1024x1024"):
     response = openai.images.generate(
         model="dall-e-3",
@@ -28,14 +72,18 @@ def generate_image(prompt, n:int=1, size:str="1024x1024"):
         n=1
     )
 
-    image_url = response.data[0].url
+    dalle_image_url = response.data[0].url
     
-    # Download and display image using Streamlit
-    im = Image.open(requests.get(image_url, stream=True).raw)
-    # im.save("temp.png")
-    st.image(im, caption=prompt)
+    print(f"Generated image URL: {dalle_image_url}")
 
-    return image_url
+    # Upload the resized image to Imgur
+    imgur_url = uploader.upload_image(dalle_image_url)
+
+    if imgur_url:
+        print(f"Success! Image uploaded to Imgur: {imgur_url}")
+    else:
+        print("Image upload to Imgur failed")
+    return imgur_url
 
 openai.api_key = st.secrets["OPENAI_API_KEY"]
 # openai.base_url = "https://api.openai.com/v1/assistants"
