@@ -403,7 +403,7 @@ elif st.session_state.page == 2:
 
 
 
-    def update_typing_animation(placeholder, current_dots):
+    def update_typing_animation(placeholder, current_dots, text = "Waiting for EcoAI response"):
         """
         Updates the placeholder with the next stage of the typing animation.
 
@@ -412,7 +412,7 @@ elif st.session_state.page == 2:
         current_dots (int): Current number of dots in the animation.
         """
         num_dots = (current_dots % 6) + 1  # Cycle through 1 to 3 dots
-        placeholder.markdown("Waiting for EcoAI response" + "." * num_dots)
+        placeholder.markdown(text + "." * num_dots)
         return num_dots
     
 
@@ -540,6 +540,7 @@ elif st.session_state.page == 2:
                                 tool_outputs = []
                                 for tool_call in tool_calls:
                                     if tool_call.function.name == "generate_image":
+                                        dots = update_typing_animation(waiting_message, dots, "Your image is being crafted – sit tight! This usually takes a few seconds...")
                                         args = json.loads(tool_call.function.arguments)
                                         image_url = generate_image(args["prompt"], size=args.get("size", "1024x1024"))
                                         tool_outputs.append({
@@ -578,12 +579,12 @@ elif st.session_state.page == 2:
                         wait_deplay = delay_display(full_response)
                         print(f'wait_deplay: {wait_deplay}')
                         
-                        def display_typing(placeholder, duration, gap):
+                        def display_typing(placeholder, duration, gap, text = "Waiting for EcoAI response"):
                             # display typing message for a certain duration
                             interval = int(duration / (1/gap)) + 1
                             for i in range(interval):
                                 num_dots = (i % 6) + 1  # Cycle through 1 to 3 dots
-                                placeholder.markdown("Waiting for EcoAI response" + "." * num_dots)
+                                placeholder.markdown(text + "." * num_dots)
                                 time.sleep(gap)
                                 placeholder.empty()
                         
