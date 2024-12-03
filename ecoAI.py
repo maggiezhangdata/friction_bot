@@ -540,7 +540,7 @@ elif st.session_state.page == 2:
                                 tool_outputs = []
                                 for tool_call in tool_calls:
                                     if tool_call.function.name == "generate_image":
-                                        dots = update_typing_animation(waiting_message, dots, "Your image is being crafted – sit tight! This usually takes a few seconds...")
+                                        dots = update_typing_animation(waiting_message, dots, "Your image is being crafted – sit tight! This usually takes a few seconds.")
                                         args = json.loads(tool_call.function.arguments)
                                         image_url = generate_image(args["prompt"], size=args.get("size", "1024x1024"))
                                         tool_outputs.append({
