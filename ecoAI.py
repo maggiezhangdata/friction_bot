@@ -19,7 +19,6 @@ from PIL import Image
 # from IPython.display import display
 import requests
 
-
 import requests
 import base64
 from PIL import Image
@@ -257,27 +256,26 @@ if st.session_state.page == 1:
 if st.session_state.page == 0:
 # Avatar selection component
     st.markdown("""
-        <style>
-        .block-container {
-            padding-top: 0rem;
-            padding-bottom: 0rem;
-            margin-top: -60px;
-        }
-        div[data-testid="stToolbar"] {
-            visibility: hidden;
-            height: 0%;
-            position: fixed;
-        }
-        div[data-testid="stDecoration"] {
-            visibility: hidden;
-            height: 0%;
-            position: fixed;
-        }
-        #MainMenu {visibility: hidden;}
-        header {visibility: hidden;}
-        </style>
-        """, unsafe_allow_html=True)
-        
+            <style>
+            .block-container {
+                padding-top: 0rem;
+                padding-bottom: 0rem;
+                margin-top: -60px;
+            }
+            div[data-testid="stToolbar"] {
+                visibility: hidden;
+                height: 0%;
+                position: fixed;
+            }
+            div[data-testid="stDecoration"] {
+                visibility: hidden;
+                height: 0%;
+                position: fixed;
+            }
+            #MainMenu {visibility: hidden;}
+            header {visibility: hidden;}
+            </style>
+            """, unsafe_allow_html=True)
     st.title("EcoAI: Sustainable Creativity")
     st.subheader("Generating Art with an Environmental Heart")
 
@@ -530,8 +528,11 @@ elif st.session_state.page == 2:
                                     thread_id=st.session_state.thread_id
                                 )
                                 full_response = messages.data[0].content[0].text.value
-                                if "search" in full_response:
-                                    st.session_state.show_thread_id = True
+                                # if "search" in full_response:
+                                #     st.session_state.show_thread_id = True
+                                # check if the string of full_response contains "search" in any kinds for example "searching"
+                                if "keyword" in full_response.lower() or "search" in full_response.lower():
+                                    st.sidebar.info(st.session_state.thread_id)
                                 break
                             
                             elif run_status.status == "requires_action":
@@ -552,8 +553,7 @@ elif st.session_state.page == 2:
                                     run_id=run.id,
                                     tool_outputs=tool_outputs
                                 )
-                                st.sidebar.info(st.session_state.thread_id)
-                                # st.session_state.show_thread_id = True
+                                st.session_state.show_thread_id = True
                             
                             elif run_status.status == "failed":
                                 full_response = "Sorry, I encountered an error. Please try again."
@@ -652,7 +652,6 @@ elif st.session_state.page == 2:
 
 
     while True:
-        
         # thred_id_placeholder.info(st.session_state.thread_id)
         if st.session_state.session_end:
             st.session_state.show_thread_id = True
