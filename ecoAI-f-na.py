@@ -92,7 +92,7 @@ openai.default_headers = {"OpenAI-Beta": "assistants=v2"}
 # # client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
 # client = OpenAI(default_headers={"OpenAI-Beta": "assistants=v2"}, api_key=st.secrets["OPENAI_API_KEY"])
-assistant_id = st.secrets["friction_with"]
+assistant_id = st.secrets["friction_with_na"]
 print(assistant_id)
 speed = 200
 
@@ -285,7 +285,7 @@ if st.session_state.page == 0:
     # st.image("https://i.imgur.com/0njuvXt.png")
     st.markdown("""
         <div style="width: 60%; margin: auto;">
-            <img src="https://i.imgur.com/0njuvXt.png" style="width: 100%;"><br>
+            <img src="https://i.imgur.com/SiwtKjN.png" style="width: 100%;"><br>
         </div>
     """, unsafe_allow_html=True)
     st.markdown("##### Why EcoAI?")
