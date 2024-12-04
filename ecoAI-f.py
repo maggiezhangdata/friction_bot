@@ -285,7 +285,7 @@ if st.session_state.page == 0:
     # st.image("https://i.imgur.com/0njuvXt.png")
     st.markdown("""
         <div style="width: 40%; margin: auto;">
-            <img src="https://i.imgur.com/NppY6Y8.jpeg" style="width: 100%;"><br>
+            <img src="https://i.imgur.com/NppY6Y8.jpeg" style="width: 100%;"><br><br>
         </div>
     """, unsafe_allow_html=True)
     st.markdown("##### Why EcoAI?")
