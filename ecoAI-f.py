@@ -276,14 +276,20 @@ if st.session_state.page == 0:
             header {visibility: hidden;}
             </style>
             """, unsafe_allow_html=True)
-    st.title("EcoAI: Sustainable Creativity")
-    st.subheader("Generating Art with an Environmental Heart")
-
+    st.markdown("## Welcome to EcoAI")
+    st.markdown("##### Generating arts with an environmental heart")
     
-    st.markdown("<div style='font-size: 20px;'>EcoAI balances creativity with environmental care. Designed to minimize resource use, it promotes mindful image generation, meeting your needs while reducing energy and water consumption. </div><br>", unsafe_allow_html=True)
+    st.markdown("<div style='font-size: 15px;'> Research has shown that generative AI tools have serious environmental impacts. Although these are digital tools, they require physical infrastructure to run in the form of large data centers. These data centers require electricity and water to operate, and they produce electronic waste that is difficult to recycle. <br> Environmentally conscious AI use is one way for individuals to reduce these negative environmental consequences.</div>", unsafe_allow_html=True)
     
     # insert a picture from pic/page1_background.png
-    st.image("https://i.imgur.com/0njuvXt.png")
+    # st.image("https://i.imgur.com/0njuvXt.png")
+    st.markdown("""
+        <div style="width: 60%; margin: auto;">
+            <img src="https://i.imgur.com/0njuvXt.png" style="width: 100%;"><br>
+        </div>
+    """, unsafe_allow_html=True)
+    st.markdown("##### Why EcoAI?")
+    st.markdown("<div style='font-size: 15x;'> EcoAI balances creativity with environmental care. Designed to minimize resource use, it promotes mindful image generation, meeting your needs while reducing energy and water consumption.</div><br>", unsafe_allow_html=True)
 
     # selected_index = image_select(
     #     label="",
