@@ -284,7 +284,7 @@ if st.session_state.page == 0:
     # insert a picture from pic/page1_background.png
     # st.image("https://i.imgur.com/0njuvXt.png")
     st.markdown("""
-        <div style="width: 40%; margin: auto;">
+        <div style="width: 30%; margin: auto;">
             <img src="https://i.imgur.com/NppY6Y8.jpeg" style="width: 100%;"><br><br>
         </div>
     """, unsafe_allow_html=True)
@@ -311,7 +311,7 @@ if st.session_state.page == 0:
     if st.button("Start exploring", on_click=next_page, type = "primary", use_container_width=True):
         # show sucess and then navigate to the next page
         st.success("Proceed to the next page")
-
+    st.markdown("<br><br><br>", unsafe_allow_html=True)
 
 
 elif st.session_state.page == 2:
