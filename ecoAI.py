@@ -306,23 +306,6 @@ if st.session_state.page == 0:
     st.markdown("##### Why EcoAI?")
     st.markdown("<div style='font-size: 15x;'> EcoAI balances creativity with environmental care. Designed to minimize resource use, it promotes mindful image generation, meeting your needs while reducing energy and water consumption.</div><br>", unsafe_allow_html=True)
 
-    # selected_index = image_select(
-    #     label="",
-    #     images=avatars,
-    #     return_value="index"
-    # )
-    # st.session_state.user_avatar = avatars[selected_index]
-    # st.markdown("\n \n \n")
-    # st.markdown("#### 请输入你的昵称")
-    # text_input = st.text_input(
-    #     "👇",
-    # )
-    # if text_input:
-    #     st.session_state.user_name = text_input
-    # # pass on user_avatar to the next page
-        
-
-    
     if st.button("Start exploring", on_click=next_page, type = "primary", use_container_width=True):
         # show sucess and then navigate to the next page
         elapsed_time = time.time() - st.session_state.start_time
