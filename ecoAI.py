@@ -140,6 +140,9 @@ avatars = [
 if 'partner_avatar' not in st.session_state:
     st.session_state.partner_avatar = None
 
+if 'start_time' not in st.session_state:
+    st.session_state.start_time = time.time()
+
 if not st.session_state.partner_avatar:
     st.session_state.partner_avatar = 'https://i.imgur.com/nTeWfNe.png'
 
@@ -176,10 +179,22 @@ if st.session_state.first_input_time:
 if "page" not in st.session_state:
     st.session_state.page = 0
 
-def next_page(): 
-    st.empty()
-    st.session_state.page += 1
-    st.empty()
+def next_page():
+    # Initialize start time if not already set
+    if 'next_page_start_time' not in st.session_state:
+        st.session_state.next_page_start_time = time.time()
+
+    # Calculate elapsed time since function was first called
+    elapsed_time = time.time() - st.session_state.next_page_start_time
+
+    # Proceed to the next page only after 10 seconds
+    if elapsed_time > 5:
+        st.session_state.page += 1
+        st.empty()
+    
+        
+
+
 content = st.empty()
 
 if 'user_avatar' not in st.session_state:
@@ -306,11 +321,16 @@ if st.session_state.page == 0:
     #     st.session_state.user_name = text_input
     # # pass on user_avatar to the next page
         
-   
+
     
     if st.button("Start exploring", on_click=next_page, type = "primary", use_container_width=True):
         # show sucess and then navigate to the next page
-        st.success("Proceed to the next page")
+        elapsed_time = time.time() - st.session_state.start_time
+        st.toast("Please take a moment to read about EcoAI...")
+        # st.write(f"Please wait {6 - int(elapsed_time)} seconds before proceeding.")
+        with st.spinner(f"Please wait {6 - int(elapsed_time)} seconds before proceeding."):
+            time.sleep(5)
+    
     st.markdown("<br><br><br>", unsafe_allow_html=True)
 
 
