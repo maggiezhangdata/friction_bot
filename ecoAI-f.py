@@ -305,7 +305,7 @@ if st.session_state.page == 0:
         elapsed_time = time.time() - st.session_state.start_time
         st.toast("Please take a moment to read about EcoAI...")
         # st.write(f"Please wait {6 - int(elapsed_time)} seconds before proceeding.")
-        with st.spinner(f"Please wait {6 - int(elapsed_time)} seconds before proceeding."):
+        with st.spinner(f"Please wait 5 seconds before proceeding."):
             time.sleep(5)
     
     st.markdown("<br><br><br>", unsafe_allow_html=True)
