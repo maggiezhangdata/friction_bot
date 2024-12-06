@@ -617,9 +617,10 @@ elif st.session_state.page == 2:
                             print(f"An error occurred. Retrying in 5 seconds...")
                             time.sleep(5)
                         else:
-                            error_message_html = """
+                            error_message_html = f"""
                                 <div style='display: inline-block; border:2px solid red; padding: 4px; border-radius: 5px; margin-bottom: 20px; color: red;'>
-                                    <strong>Network error:</strong> please try again.
+                                    <strong>Network error:</strong> {str(e)}<br>
+                                    Please try again.
                                 </div>
                                 """
                             full_response = error_message_html
