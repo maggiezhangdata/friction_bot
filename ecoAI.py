@@ -563,7 +563,7 @@ elif st.session_state.page == 2:
                                     run_id=run.id,
                                     tool_outputs=tool_outputs
                                 )
-                                st.session_state.show_thread_id = True
+                                st.sidebar.info(st.session_state.thread_id)
                             
                             elif run_status.status == "failed":
                                 full_response = "Sorry, I encountered an error. Please try again."
@@ -663,8 +663,8 @@ elif st.session_state.page == 2:
 
     while True:
         # thred_id_placeholder.info(st.session_state.thread_id)
-        if st.session_state.show_thread_id:
-            thred_id_placeholder.info(st.session_state.thread_id)
+        # if st.session_state.show_thread_id:
+        #     thred_id_placeholder.info(st.session_state.thread_id)
         if st.session_state.session_end:
             st.session_state.show_thread_id = True
             break

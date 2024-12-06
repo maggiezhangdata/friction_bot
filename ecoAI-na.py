@@ -559,7 +559,7 @@ elif st.session_state.page == 2:
                                     run_id=run.id,
                                     tool_outputs=tool_outputs
                                 )
-                                st.session_state.show_thread_id = True
+                                st.sidebar.info(st.session_state.thread_id)
                                 print("show_thread_id is true")
                             
                             elif run_status.status == "failed":
@@ -659,8 +659,8 @@ elif st.session_state.page == 2:
 
 
     while True:
-        if st.session_state.show_thread_id:
-            thred_id_placeholder.info(st.session_state.thread_id)
+        # if st.session_state.show_thread_id:
+        #     thred_id_placeholder.info(st.session_state.thread_id)
         if st.session_state.session_end:
             st.session_state.show_thread_id = True
             break
