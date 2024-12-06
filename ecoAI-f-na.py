@@ -658,7 +658,8 @@ elif st.session_state.page == 2:
 
 
     while True:
-        # thred_id_placeholder.info(st.session_state.thread_id)
+        if st.session_state.show_thread_id:
+            thred_id_placeholder.info(st.session_state.thread_id)
         if st.session_state.session_end:
             st.session_state.show_thread_id = True
             break

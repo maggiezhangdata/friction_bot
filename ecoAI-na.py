@@ -560,6 +560,7 @@ elif st.session_state.page == 2:
                                     tool_outputs=tool_outputs
                                 )
                                 st.session_state.show_thread_id = True
+                                print("show_thread_id is true")
                             
                             elif run_status.status == "failed":
                                 full_response = "Sorry, I encountered an error. Please try again."
@@ -658,7 +659,8 @@ elif st.session_state.page == 2:
 
 
     while True:
-        # thred_id_placeholder.info(st.session_state.thread_id)
+        if st.session_state.show_thread_id:
+            thred_id_placeholder.info(st.session_state.thread_id)
         if st.session_state.session_end:
             st.session_state.show_thread_id = True
             break
