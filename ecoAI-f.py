@@ -295,7 +295,7 @@ if st.session_state.page == 0:
         <strong>large data centers</strong>. These data centers require <strong>electricity and water</strong> 
         to operate, and they produce <strong>electronic waste</strong> that is difficult to recycle. <br> 
         Environmentally conscious AI use is one way for individuals to reduce these 
-        <span style='background-color: yellow;'>a great deal of</span> negative environmental consequences.
+        a great deal of negative environmental consequences.
     </div>
     """, unsafe_allow_html=True)
     # insert a picture from pic/page1_background.png
