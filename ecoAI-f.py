@@ -292,10 +292,10 @@ if st.session_state.page == 0:
     <div style='font-size: 15px;'>
         Research has shown that generative AI tools have <strong>serious environmental impacts</strong>. 
         Although these are digital tools, they require physical infrastructure to run in the form of 
-        <strong>large data centers</strong>. These data centers require <strong>electricity and water</strong> 
+        <strong>large data centers</strong>. These data centers require a great deal of <strong>electricity and water</strong> 
         to operate, and they produce <strong>electronic waste</strong> that is difficult to recycle. <br> 
         Environmentally conscious AI use is one way for individuals to reduce these 
-        a great deal of negative environmental consequences.
+        negative environmental consequences.
     </div>
     """, unsafe_allow_html=True)
     # insert a picture from pic/page1_background.png
