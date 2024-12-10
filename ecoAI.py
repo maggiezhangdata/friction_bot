@@ -188,7 +188,7 @@ def next_page():
     elapsed_time = time.time() - st.session_state.next_page_start_time
 
     # Proceed to the next page only after 10 seconds
-    if elapsed_time > 5:
+    if elapsed_time > 10:
         st.session_state.page += 1
         st.empty()
     
@@ -291,11 +291,19 @@ if st.session_state.page == 0:
             header {visibility: hidden;}
             </style>
             """, unsafe_allow_html=True)
-    st.markdown("## Welcome to EcoAI")
+    st.markdown("## About EcoAI")
     st.markdown("##### Generating arts with an environmental heart")
     
-    st.markdown("<div style='font-size: 15px;'> Research has shown that generative AI tools have serious environmental impacts. Although these are digital tools, they require physical infrastructure to run in the form of large data centers. These data centers require electricity and water to operate, and they produce electronic waste that is difficult to recycle. <br> Environmentally conscious AI use is one way for individuals to reduce these negative environmental consequences.</div>", unsafe_allow_html=True)
-    
+    st.markdown("""
+    <div style='font-size: 15px;'>
+        Research has shown that generative AI tools have <strong>serious environmental impacts</strong>. 
+        Although these are digital tools, they require physical infrastructure to run in the form of 
+        <strong>large data centers</strong>. These data centers require <strong>electricity and water</strong> 
+        to operate, and they produce <strong>electronic waste</strong> that is difficult to recycle. <br> 
+        Environmentally conscious AI use is one way for individuals to reduce these 
+        <span style='background-color: yellow;'>a great deal of</span> negative environmental consequences.
+    </div>
+    """, unsafe_allow_html=True)
     # insert a picture from pic/page1_background.png
     # st.image("https://i.imgur.com/0njuvXt.png")
     st.markdown("""
@@ -311,8 +319,8 @@ if st.session_state.page == 0:
         elapsed_time = time.time() - st.session_state.start_time
         st.toast("Please take a moment to read about EcoAI...")
         # st.write(f"Please wait {6 - int(elapsed_time)} seconds before proceeding.")
-        with st.spinner(f"Please wait 5 seconds before proceeding."):
-            time.sleep(5)
+        with st.spinner(f"Please wait 10 seconds before proceeding."):
+            time.sleep(10)
     
     st.markdown("<br><br><br>", unsafe_allow_html=True)
 

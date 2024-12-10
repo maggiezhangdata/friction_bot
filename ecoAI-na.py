@@ -276,11 +276,19 @@ if st.session_state.page == 0:
             header {visibility: hidden;}
             </style>
             """, unsafe_allow_html=True)
-    st.markdown("## Welcome to EcoAI")
+    st.markdown("## About EcoAI")
     st.markdown("##### Generating arts with an environmental heart")
     
-    st.markdown("<div style='font-size: 15px;'> Research has shown that generative AI tools have serious environmental impacts. Although these are digital tools, they require physical infrastructure to run in the form of large data centers. These data centers require electricity and water to operate, and they produce electronic waste that is difficult to recycle. <br> Environmentally conscious AI use is one way for individuals to reduce these negative environmental consequences.</div>", unsafe_allow_html=True)
-    
+    st.markdown("""
+    <div style='font-size: 15px;'>
+        Research has shown that generative AI tools have <strong>serious environmental impacts</strong>. 
+        Although these are digital tools, they require physical infrastructure to run in the form of 
+        <strong>large data centers</strong>. These data centers require <strong>electricity and water</strong> 
+        to operate, and they produce <strong>electronic waste</strong> that is difficult to recycle. <br> 
+        Environmentally conscious AI use is one way for individuals to reduce these 
+        <span style='background-color: yellow;'>a great deal of</span> negative environmental consequences.
+    </div>
+    """, unsafe_allow_html=True)
     # insert a picture from pic/page1_background.png
     # st.image("https://i.imgur.com/0njuvXt.png")
     st.markdown("""
