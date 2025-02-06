@@ -562,12 +562,30 @@ elif st.session_state.page == 2:
                                             "output": image_url
                                         })
                                 
-                                openai.beta.threads.runs.submit_tool_outputs(
-                                    thread_id=st.session_state.thread_id,
-                                    run_id=run.id,
-                                    tool_outputs=tool_outputs
-                                )
                                 st.sidebar.info(st.session_state.thread_id)
+                                time.sleep(5)
+                                max_retries = 3  # Maximum number of retry attempts
+                                retry_count = 0
+                                while retry_count < max_retries:
+                                    try:
+                                        openai.beta.threads.runs.submit_tool_outputs(
+                                            thread_id=st.session_state.thread_id,
+                                            run_id=run.id,
+                                            tool_outputs=tool_outputs
+                                        )
+                                        break  # Exit the loop if successful
+                                    except Exception as e:
+                                        print(f"Attempt {retry_count + 1} failed. Error submitting tool outputs: {e}")
+                                        retry_count += 1
+                                        if retry_count < max_retries:
+                                            print(f"Waiting 3 seconds before retry...")
+                                            time.sleep(3)
+                                            continue
+                                        else:
+                                            print("Max retries reached. Operation failed.")
+                                            # Handle the final failure case here
+                                            raise  # Re-raise the last exception if all retries fail
+                            
                             
                             elif run_status.status == "failed":
                                 full_response = "Sorry, I encountered an error. Please try again."
