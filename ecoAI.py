@@ -140,9 +140,6 @@ avatars = [
 if 'partner_avatar' not in st.session_state:
     st.session_state.partner_avatar = None
 
-if 'start_time' not in st.session_state:
-    st.session_state.start_time = time.time()
-
 if not st.session_state.partner_avatar:
     st.session_state.partner_avatar = 'https://i.imgur.com/nTeWfNe.png'
 
@@ -163,7 +160,8 @@ if 'first_message_sent' not in st.session_state:
 if 'message_lock' not in st.session_state:
     st.session_state.message_lock = False
 
-
+if 'start_time' not in st.session_state:
+    st.session_state.start_time = time.time()
     
 if 'duration' not in st.session_state:
     st.session_state.duration = 0
@@ -191,10 +189,6 @@ def next_page():
     if elapsed_time > 10:
         st.session_state.page += 1
         st.empty()
-    
-        
-
-
 content = st.empty()
 
 if 'user_avatar' not in st.session_state:
@@ -323,8 +317,6 @@ if st.session_state.page == 0:
             time.sleep(10)
     
     st.markdown("<br><br><br>", unsafe_allow_html=True)
-
-
 
 elif st.session_state.page == 2:
     if "messages" not in st.session_state:
@@ -565,6 +557,7 @@ elif st.session_state.page == 2:
                                             "tool_call_id": tool_call.id,
                                             "output": image_url
                                         })
+                                
                                 st.sidebar.info(st.session_state.thread_id)
                                 time.sleep(5)
                                 max_retries = 3  # Maximum number of retry attempts
@@ -588,6 +581,7 @@ elif st.session_state.page == 2:
                                             print("Max retries reached. Operation failed.")
                                             # Handle the final failure case here
                                             raise  # Re-raise the last exception if all retries fail
+                            
                             
                             elif run_status.status == "failed":
                                 full_response = "Sorry, I encountered an error. Please try again."
@@ -687,7 +681,6 @@ elif st.session_state.page == 2:
 
 
     while True:
-        # thred_id_placeholder.info(st.session_state.thread_id)
         # if st.session_state.show_thread_id:
         #     thred_id_placeholder.info(st.session_state.thread_id)
         if st.session_state.session_end:
